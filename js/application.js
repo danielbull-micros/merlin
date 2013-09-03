@@ -8,17 +8,25 @@ $(function () {
 $(document).ready(function() {
     // Todo list
     $(".todo .todo-content").click(function() {
-        $(this).parent('li').toggleClass("todo-done");
 
-        if ($(this).next('.tooltip').length && $(this).parent('li').hasClass('todo-done')) {
-            $(this).next('.tooltip').addClass('bounceInDown');
+        var $this = $(this);
+
+        $('.todo-done').removeClass('read');
+
+
+        $this.parent('li').toggleClass("todo-done");
+
+        if ($this.next('.tooltip').length && $(this).parent('li').hasClass('todo-done')) {
+            $(this).parent('li').addClass('read');
+            $this.next('.tooltip').addClass('bounceInDown').css('display','block');
 
         var modal = $('<div/>', {
             class: 'modal-bg',
             click: function() {
                 $(this).fadeOut(500, function(){$(this).remove();});
-                $('.tooltip').parent('.todo-done').addClass('read');
+                $('.tooltip:visible').css('display', 'none');
 
+                
             }
             }).appendTo('body');
 
